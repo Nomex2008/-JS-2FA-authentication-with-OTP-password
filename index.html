@@ -10,6 +10,22 @@
 
     <h2>2FA Setup</h2>
     <button onclick="setup2FA()">Налаштування FA</button>
+    <div id="qrCode"></div>
+
+    <h2>Перевірка OTP</h2>
+    <form action="/verify-otp" method="post">
+        <input type="text" name="token" placeholder="Введіть OTP">
+        <button type="submit">Перевірити OTP</button>
+    </form>    
     
+    <script>
+        function setup2FA() {
+            fetch('/setup-2fa')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('qrCode').innerHTML = `<img src='${data.qrCodeUrl}'>`
+                })
+        }
+    </script>
 </body>
 </html>
